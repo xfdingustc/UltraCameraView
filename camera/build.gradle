@@ -20,5 +20,38 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
+}
+
+
+if (project.hasProperty('PUBLISH_GROUP_ID')) {
+    android.libraryVariants.all { variant ->
+        def name = variant.buildType.name
+        if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
+            return;
+        }
+
+        def task = project.tasks.create(name: "jar${name.capitalize()}", type: Jar) {
+            from variant.javaCompile.destinationDir
+            exclude "**/R.class"
+            exclude "**/BuildConfig.class"
+        }
+        task.dependsOn variant.javaCompile
+        artifacts.add('archives', task)
+
+    }
+    apply plugin: 'maven'
+
+
+    uploadArchives {
+        println 'upload archives!!!'
+
+        repositories.mavenDeployer {
+            pom.packaging = "jar"
+            pom.groupId = PUBLISH_GROUP_ID
+            pom.artifactId = PUBLISH_ARTIFACT_ID
+            pom.version = PUBLISH_VERSION
+
+            repository(url: LOCAL_REPO)
+        }
+    }
 }
