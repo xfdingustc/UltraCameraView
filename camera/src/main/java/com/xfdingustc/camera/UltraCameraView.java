@@ -8,6 +8,14 @@ import android.view.ViewGroup;
  * Created by Xiaofei on 2015/5/14.
  */
 public class UltraCameraView extends ViewGroup {
+  public UltraCameraView(Context context) {
+    super(context);
+  }
+
+  public UltraCameraView(Context context, AttributeSet attrs) {
+    this(context, attrs, 0);
+  }
+
   public UltraCameraView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
   }
