@@ -2,15 +2,19 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity">
 
     <com.xfdingustc.camera.UltraCameraView
-        android:background="@android:color/holo_red_dark"
+        android:id="@+id/ultra_camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/btn_take_photo"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"/>
 
 </RelativeLayout>

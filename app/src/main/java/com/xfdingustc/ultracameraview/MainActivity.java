@@ -1,17 +1,37 @@
 package com.xfdingustc.ultracameraview;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.xfdingustc.camera.SimpleCameraHost;
+import com.xfdingustc.camera.UltraCameraHost;
+import com.xfdingustc.camera.UltraCameraHostProvider;
+import com.xfdingustc.camera.UltraCameraView;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends ActionBarActivity implements UltraCameraHostProvider{
+  private UltraCameraView mCameraview;
+  private UltraCameraHost mCameraHost;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    initViews();
     setContentView(R.layout.activity_main);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mCameraview.onResume();
+  }
+
+  private void initViews() {
+    setContentView(R.layout.activity_main);
+    mCameraview = (UltraCameraView)findViewById(R.id.ultra_camera_view);
   }
 
   @Override
@@ -34,5 +54,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public UltraCameraHost getCameraHost() {
+    return new MyCameraHost(this);
+  }
+
+  private class MyCameraHost extends SimpleCameraHost {
+    public MyCameraHost(Context context) {
+      super(context);
+    }
+
   }
 }
